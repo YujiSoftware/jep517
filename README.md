@@ -18,9 +18,15 @@ style: |
     vertical-align: middle;
   }
   
+  img[alt~="center"] {
+    display: block;
+    margin: 0 auto;
+  }
+
   .info {
     border: 2px solid #dee2e6;
     background-color: #cff4fc;
+    color: #052c65;
     padding: 0.5em;
     border-radius: 10px;
     margin: 10px 0;
@@ -41,7 +47,7 @@ style: |
 # JEP 517 の概要
 
 - Java 26 で実装された JEP
-- HTTP Client API で **HTTP/3 を送受信できるようになった**
+- HTTP Client API で **HTTP/3 を扱えるようになった**
 - デフォルトのプロトコルは HTTP/2 のまま
   - 開発者が明示的に HTTP/3 を指定する必要がある
 
@@ -51,19 +57,25 @@ style: |
 - HTTP（Hypertext Transfer Protocol） の最新バージョン
   - RFC 9114 として標準化された
 - QUIC（**UDPベース**）上で動作
+- 暗号化（TLS-1.3）必須
 - 不安定な環境でも、低遅延かつ安定した接続を実現
 
 <div class="info">
   高速で安定した環境の場合、HTTP/2よりも遅くなるとも言われている
 </div>
 
+---
+
+# HTTP のレイヤー
+
+![height:500 center](img/http_layer.svg)
 
 ---
 
 # JEP 517 の実装
 
 - [8349910: Implement JEP 517: HTTP/3 for the HTTP Client API by dfuch · Pull Request #24751 · openjdk/jdk](https://github.com/openjdk/jdk/pull/24751)
-  - かなり大規模
+  - 全部 Java で実装されている
 
 ![width:1150](img/commit.png)
 
@@ -71,7 +83,7 @@ style: |
 
 # 使い方
 
-- `HttpClient` または `HttpReuqest` でオプションを設定する
+- **HttpClient** または **HttpReuqest** でオプションを設定する
   - **Version.HTTP_3**
   - **HttpOption.H3_DISCOVERY**（任意）
 - これ以外は、今までと同じ
@@ -118,12 +130,14 @@ void main() throws java.io.IOException, InterruptedException {
 
 # H3_DISCOVERY.ANY
 
-1. **HTTP/3 で**接続を試みる
-2. 失敗（拒否された、またはタイムアウトした）したら、HTTP/2 にフォールバック
+- 実装固有の方法で、HTTP/3 を使用する
+- 現状の OpenJDK 実装だと…
+  1. **HTTP/3 で**接続を試みる
+  2. 失敗（拒否された、またはタイムアウトした）したら、以降そのドメインは HTTP/2 にフォールバック
 
 <hr>
 
-- サーバが HTTP/3 に対応していないと、タイムアウトするまで待つ（2.75s）ので遅い
+- サーバが HTTP/3 に対応していないと、初回はタイムアウトするまで待つ（2.75s）のでちょっと遅い
 
 ---
 
