@@ -9,7 +9,7 @@ style: |
   :root {
     --color-background: #fff;
     --color-foreground: #000;
-    --color-highlight: #f96;
+    --color-highlight: #1a0dab;
     --color-dimmed: #888;
     font-size: 40px;
     line-height: 1.2;
@@ -43,6 +43,8 @@ style: |
 # JEP 517<br>HTTP/3 for the HTTP Client API
 
 ![width:150px height:150px](img/photo.jpg) @YujiSoftware
+
+https://github.com/YujiSoftware/jep517/
 
 ---
 
