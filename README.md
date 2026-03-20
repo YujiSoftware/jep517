@@ -2,6 +2,8 @@
 marp: true
 author: "@YujiSoftware"
 title: "JEP 517: HTTP/3 for the HTTP Client API"
+description: "JJUGナイトセミナー「Java 26 リリース記念イベント」のセッション資料です。"
+image: "img/card.png"
 theme: gaia
 style: |
   :root {
