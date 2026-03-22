@@ -60,9 +60,8 @@ https://github.com/YujiSoftware/jep517/
 
 - HTTP（Hypertext Transfer Protocol） の最新バージョン
   - RFC 9114 として標準化された
-- QUIC（**UDPベース**）上で動作
-- 暗号化（TLS 1.3）必須
-- 不安定な環境でも、低遅延かつ安定した接続を実現
+- **QUIC（UDPベース）** 上で動作
+  - 不安定な環境でも、低遅延かつ安定した接続を実現
 
 <div class="info">
   高速で安定した環境の場合、HTTP/2よりも遅くなるとも言われている
@@ -124,9 +123,9 @@ void main() throws java.io.IOException, InterruptedException {
 
 ---
 
-# オプション設定
+# H3_DISCOVERY オプション
 
-- HTTP/3 の発見方法をオプションで指定する
+- HTTP/3 の**発見方法**の指定する
 - 指定する値は **HttpOption.Http3DiscoveryMode**（enum）のいずれか
     - ANY （デフォルト）
     - ALT_SVC
@@ -155,12 +154,11 @@ void main() throws java.io.IOException, InterruptedException {
 <hr>
 
 - ブラウザと同じ挙動
-- HttpClient インスタンスが `alt-svc` の指定を保持
-  - インスタンスを作り直すと、1. からやり直し
+- HTTPS RR（リソースレコード）には未対応
 
 ---
 
-## H3_DISCOVERY
+## HTTP_3_URI_ONLY
 
 1. **HTTP/3 で**接続を試みる
 2. 失敗（拒否された、またはタイムアウトした）したら例外
@@ -184,6 +182,16 @@ void main() throws java.io.IOException, InterruptedException {
 
 ---
 
+<!-- _class: lead -->
+
+# JEP 517<br>HTTP/3 for the HTTP Client API
+
+![width:150px height:150px](img/photo.jpg) @YujiSoftware
+
+https://github.com/YujiSoftware/jep517/
+
+---
+
 # 参考資料
 
 - [JEP 517: HTTP/3 for the HTTP Client API](https://openjdk.org/jeps/517)
@@ -191,3 +199,11 @@ void main() throws java.io.IOException, InterruptedException {
 - [8349910: Implement JEP 517: HTTP/3 for the HTTP Client API · openjdk/jdk@e8db14f · GitHub](https://github.com/openjdk/jdk/commit/e8db14f584fa92db170e056bc68074ccabae82c9#diff-4201fd070e7f248730b1637f8c7bd8a1b78ae78de2818a8dbf75c5bc70581f3a)
 - [HttpClient (Java SE 26 & JDK 26)](https://docs.oracle.com/en/java/javase/26/docs/api/java.net.http/java/net/http/HttpClient.html)
 - [HTTPが全てを飲み込む（前編）～HTTPの2層構造と、HTTP Semanticsとは何か？ － Publickey](https://www.publickey1.jp/blog/24/httphttp2http_semantics.html)
+
+---
+
+# JavaAPI Redirector（宣伝）
+
+Java API ドキュメント (Javadoc) のページを開いた際に、**自動で最新バージョンにリダイレクトするブラウザ拡張機能**を作りました。ぜひご利用ください！
+- [JavaAPI (Javadoc) Redirector - Chrome ウェブストア](https://chromewebstore.google.com/detail/javaapi-javadoc-redirecto/kildmhgekjfidnaohdmopdcoibigchkj)
+- [JavaAPI (Javadoc) Redirector – 🦊 Firefox Add-ons](https://addons.mozilla.org/ja/firefox/addon/javaapi-redirector/)
